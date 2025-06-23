@@ -9,14 +9,14 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-2" # Change as needed
+  region = "us-east-1" # Change as needed
 }
 
 variable "vpc_cidr"    { default = "10.0.0.0/16" }
 variable "db_username" { default = "admin" }
 variable "db_password" { default = "MySecurePass123" }
 variable "db_name"     { default = "inventory" }
-variable "azs"         { default = ["us-east-2a", "us-east-2b"] }
+variable "azs"         { default = ["us-east-1a", "us-east-1b"] }
 
 locals {
   public_subnets  = ["10.0.0.0/20", "10.0.48.0/20"]
@@ -28,13 +28,13 @@ resource "aws_vpc" "main" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
-  tags = { Name = "east2-vpc" }
+  tags = { Name = "east1-vpc" }
 }
 
 # IGW
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
-  tags = { Name = "east2-igw" }
+  tags = { Name = "east1-igw" }
 }
 
 # Subnets
